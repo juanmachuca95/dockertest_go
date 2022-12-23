@@ -23,17 +23,11 @@ func (r *repo) SaveUser(ctx context.Context, u domain.User) error {
 	stmt, err := r.db.Prepare("INSERT INTO users (nombre, apellido) VALUES(?,?);")
 	if err != nil {
 		return err
-		/*
-			 		ctx.StopWithProblem(iris.StatusInternalServerError, iris.NewProblem().
-						Title("cannot prepare create user into db").DetailErr(err))
-		*/
 	}
 
 	result, err := stmt.Exec(u.Nombre, u.Apellido)
 	if err != nil {
 		return err
-		/* ctx.StopWithProblem(iris.StatusInternalServerError, iris.NewProblem().
-		Title("cannot execute create user into db").DetailErr(err)) */
 	}
 
 	rowsAffected, err := result.RowsAffected()
